@@ -1,0 +1,290 @@
+----Object-----------------------------------------
+
+JavaScript'te Object, anahtar-değer çiftlerini saklamak için kullanılır. Bir anahtar (veya "property" adı) string veya sembol olabilir ve her anahtarın bir değeri vardır. Objeler, veri yapılarını organize etmek ve daha karmaşık veri koleksiyonlarını saklamak için kullanılır.
+
+>>
+
+let user = {
+  name: "John",
+  age: 30
+};
+
+// Erişim
+console.log(user.name); // John
+console.log(user["age"]); // 30
+
+// Ekleme veya güncelleme
+user.isAdmin = true;
+
+// Silme
+delete user.age;
+
+
+<<
+
+
+
+->Object.keys() : Bir objenin anahtarlarının (property adlarının) bir dizisini döner.
+
+>>
+
+const person = { name: "John", age: 30 };
+console.log(Object.keys(person)); // ["name", "age"]
+
+<<
+
+
+
+
+->Object.values() : Bir objenin değerlerinin bir dizisini döner.
+
+>>
+
+console.log(Object.values(person)); // ["John", 30]
+
+<<
+
+
+
+
+
+->Object.entries(): Her bir anahtar-değer çifti için [key, value] şeklinde diziler içeren bir dizi döner.
+
+>>
+
+console.log(Object.entries(person)); // [["name", "John"], ["age", 30]]
+
+<<
+
+
+
+
+->Object.assign(): Bir veya birden fazla kaynak objeyi hedef objeye kopyalar
+
+>>
+
+const target = { a: 1 };
+const source = { b: 2 };
+Object.assign(target, source);
+console.log(target); // { a: 1, b: 2 }
+
+<<
+
+
+
+
+->Object.freeze(): Bir objeyi dondurur, böylece değiştirilemez
+
+>>
+
+const obj = { prop: 42 };
+Object.freeze(obj);
+obj.prop = 33; // Hata vermez ama obj.prop değişmez.
+console.log(obj.prop); // 42
+
+<<
+
+
+
+
+
+
+----Map-----------------------------------------
+
+Map objesi, anahtar-değer çiftlerini saklar. Ancak Objectten farklı olarak, anahtarlar yalnızca string veya sembol değil, her türlü değer olabilir (fonksiyonlar, objeler dahil). Mapler sıralıdır; yani anahtar-değer çiftleri eklendikleri sırayla saklanır.
+
+>>
+
+let map = new Map();
+
+map.set("1", "str1");    // Bir string anahtar
+map.set(1, "num1");      // Bir sayısal anahtar
+map.set(true, "bool1");  // Bir boolean anahtar
+
+// Erişim
+console.log(map.get(1)); // "num1"
+console.log(map.get("1")); // "str1"
+
+// Boyut
+console.log(map.size); // 3
+
+// Silme
+map.delete(true);
+
+<<
+
+->set(key, value): Bir Map'e anahtar-değer çifti ekler.
+
+>>
+
+let map = new Map();
+map.set('apple', 'green');
+map.set('orange', 'orange');
+map.set('strawberry', 'red');
+
+console.log(map.get('apple')); // green
+
+<<
+
+
+
+->get(key): Belirtilen anahtara karşılık gelen değeri döner.
+
+>>
+
+console.log(map.get('orange')); // orange
+
+<<
+
+
+
+
+->has(key): Map'in belirtilen anahtarı içerip içermediğini boolean bir değerle döner.
+
+>>
+
+console.log(map.has('strawberry')); // true
+
+<<
+
+
+
+
+
+->delete(key): Belirtilen anahtar ve ona karşılık gelen değeri Map'ten siler.
+
+>>
+
+map.delete('apple');
+console.log(map.has('apple')); // false
+
+<<
+
+
+
+
+->clear(): Map'teki tüm anahtar-değer çiftlerini temizler.
+
+>>
+
+map.clear();
+console.log(map.size); // 0
+
+<<
+
+
+
+->forEach(callbackFn): Map'teki her anahtar-değer çifti üzerinde bir fonksiyonu çağırır.
+
+>>
+
+map.set('apple', 'green').set('orange', 'orange');
+map.forEach((value, key) => {
+  console.log(`${key}: ${value}`);
+});
+// apple: green
+// orange: orange
+
+<<
+
+
+
+
+
+
+----Set-----------------------------------------
+
+Set objesi, benzersiz değerler koleksiyonunu saklar. Yani bir Set içinde aynı değerden birden fazla olamaz. Değerler her türlü olabilir.
+
+>>
+
+let set = new Set();
+
+set.add(1);
+set.add(5);
+set.add(5); // Bu '5' eklenmez, çünkü zaten bir '5' var.
+
+// Erişim
+console.log(set.has(1)); // true
+console.log(set.has(3)); // false
+
+// Boyut
+console.log(set.size); // 2
+
+// Silme
+set.delete(5);
+
+<<
+
+->add(value): Set'e bir değer ekler. Eğer değer zaten Set'te varsa, işlem bir etki yapmaz.
+
+>>
+
+let set = new Set();
+set.add('apple');
+set.add('banana');
+set.add('apple'); // Bu 'apple' eklenmez, çünkü zaten eklenmiş.
+
+console.log(set.has('apple')); // true
+console.log(set.size); // 2
+
+<<
+
+
+
+->has(value): Set'in belirtilen değeri içerip içermediğini boolean bir değerle döner.
+
+>>
+
+console.log(set.has('banana')); // true
+
+<<
+
+
+
+->delete(value): Belirtilen değeri Set'ten siler.
+
+>>
+
+set.delete('banana');
+console.log(set.has('banana')); // false
+
+<<
+
+
+->clear(): Set'teki tüm değerleri temizler.
+
+>>
+
+set.clear();
+console.log(set.size); // 0
+
+<<
+
+
+->forEach(callbackFn): Set'teki her değer üzerinde bir fonksiyonu çağırır.
+
+>>
+
+set.add('apple').add('orange');
+set.forEach(value => {
+  console.log(value);
+});
+// apple
+// orange
+
+
+<<
+
+
+Not: 
+	Her bir yapı farklı ihtiyaçlar için uygun olabilir. Objectler genel amaçlı anahtar-değer çiftleri için, Mapler daha karmaşık anahtar yapıları ve sıralı erişim için, Setler ise 	benzersiz değer koleksiyonları için idealdir. Bu yapıların her biri JavaScript'te veri saklama ve manipülasyon için güçlü araçlar sağlar.
+
+
+
+
+
+
+
+
+
